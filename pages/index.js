@@ -32,8 +32,16 @@ export default function Home() {
   };
 
   const onConnectClick = () => {
-    client.connect(() => {
-      setConnected(true)
+    client.connect((err) => {
+      if(err) {
+        console.log(err)
+        client.end()
+        setClient(
+          new Client(clientConfig)
+        )
+      } else {
+        setConnected(true)
+      }
     })
   }
 
